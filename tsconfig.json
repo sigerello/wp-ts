@@ -1,0 +1,27 @@
+{
+  "include": [
+    "src/**/*"
+  ],
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "./tmp/js",
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["dom", "es2015", "es2015.promise", "dom.iterable", "scripthost"],
+    "declaration": false,
+    "strict": true,
+    "noEmitOnError": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "listEmittedFiles": true,
+    "importHelpers": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "sourceMap": true,
+    "pretty": true
+  }
+}
