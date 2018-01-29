@@ -1,14 +1,14 @@
 import * as path from 'path'
 import * as dotenv from 'dotenv-safe'
 
-const pathEnv = path.resolve(__dirname, '../.env.dev')
+const pathEnv = path.resolve(__dirname, '../.env.development')
 dotenv.load({path: pathEnv})
 
 import * as webpack from 'webpack'
 import * as merge from 'webpack-merge'
 import * as DotenvWebpack from 'dotenv-webpack'
 
-import {config as configBase} from './webpack.base.conf'
+import {webpackConfig as webpackConfigBase} from './webpack.base.conf'
 
 const filenameJS = '[name].js'
 
@@ -24,7 +24,7 @@ const rulesCSS = [
   {loader: 'stylus-loader'}
 ]
 
-let config: webpack.Configuration = merge(configBase, {
+let webpackConfig: webpack.Configuration = merge(webpackConfigBase, {
   entry: {
     app: [
       './index.styl',
@@ -67,4 +67,4 @@ let config: webpack.Configuration = merge(configBase, {
   ],
 })
 
-export default config
+export default webpackConfig

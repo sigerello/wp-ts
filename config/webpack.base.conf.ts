@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'production') {
   filenameAsset = '[name].[ext]'
 }
 
-let config: webpack.Configuration = {
+let webpackConfig: webpack.Configuration = {
   context: path.resolve(__dirname, '../src'),
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.css', '.styl'],
@@ -30,6 +30,14 @@ let config: webpack.Configuration = {
           limit: 1000,
         },
       }]
+    }, {
+      test: /\.html$/,
+      use: [{
+        loader: "html-loader",
+        options: {
+          attrs: ["img:src", "link:href"],
+        }
+      }]
     }]
   },
   plugins: [
@@ -48,4 +56,4 @@ let config: webpack.Configuration = {
   ]
 }
 
-export {config}
+export {webpackConfig}

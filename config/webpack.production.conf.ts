@@ -1,7 +1,7 @@
 import * as path from 'path'
 import * as dotenv from 'dotenv-safe'
 
-const pathEnv = path.resolve(__dirname, '../.env.prod')
+const pathEnv = path.resolve(__dirname, '../.env.production')
 dotenv.load({path: pathEnv})
 
 import * as webpack from 'webpack'
@@ -15,7 +15,11 @@ import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 // import * as WebpackChunkHash from 'webpack-chunk-hash'
 // import * as ChunkManifestPlugin from 'chunk-manifest-webpack-plugin'
 
-import {config as configBase} from './webpack.base.conf'
+import {webpackConfig as webpackConfigBase} from './webpack.base.conf'
+
+const config = {
+  dist: '../dist'
+}
 
 const filenameJS = '[name]-[chunkhash:16].js'
 const filenameCSS = '[name]-[contenthash:16].css'
@@ -33,7 +37,7 @@ const rulesCSS = [
   {loader: 'stylus-loader'},
 ]
 
-let config: webpack.Configuration = merge(configBase, {
+let webpackConfig: webpack.Configuration = merge(webpackConfigBase, {
   entry: {
     // vendor: [
     //   //vendor modules here
@@ -44,7 +48,7 @@ let config: webpack.Configuration = merge(configBase, {
     ]
   },
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, config.dist),
     publicPath: '/',
     filename: filenameJS,
     chunkFilename: filenameJS,
@@ -61,8 +65,7 @@ let config: webpack.Configuration = merge(configBase, {
     new webpack.LoaderOptionsPlugin({
       minimize: true
     }),
-    new CleanWebpackPlugin(['dist'], {
-      root: path.resolve(__dirname, ".."),
+    new CleanWebpackPlugin([config.dist], {
       verbose: true,
     }),
     // new CopyWebpackPlugin([{
@@ -87,7 +90,6 @@ let config: webpack.Configuration = merge(configBase, {
         },
       },
     }),
-
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: ["vendor", "manifest"],
     //   minChunks: Infinity,
@@ -99,8 +101,7 @@ let config: webpack.Configuration = merge(configBase, {
     //   manifestVariable: "webpackManifest",
     //   inlineManifest: false,
     // }),
-
   ],
 })
 
-export default config
+export default webpackConfig
